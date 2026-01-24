@@ -3,8 +3,8 @@
 
 $dvd_jednotka = "D:"
 # cd %USERPROFILE%\AppData\Local\Microsoft\Windows\Burn\Burn
-$burn_folder = "C:\Users\DELL\AppData\Local\Microsoft\Windows\Burn\Burn\" # burn folder
-$cesta_zaloha = "C:\Users\DELL\Documents\zaloha\"
+$burn_folder = "C:\Users\DELL\AppData\Local\Microsoft\Windows\Burn\Burn\" # burn folder (zde editovat username)
+$cesta_zaloha = "C:\Users\DELL\Documents\zaloha\" # zde editovat
 
 $pole_zalohovat = @( # vsechno dohromady jednotlive soubory i adresare a sam pozna co je co podle rozdelovace
 "bookmarks.rar",
@@ -27,7 +27,7 @@ $pole_zalohovat = @( # vsechno dohromady jednotlive soubory i adresare a sam poz
 "save_hry",
 "moje_prace",
 "tapety"
-)
+) # toto pole editovat
 
 # prazdne $pole_zalohovat
 $d_pole_zalohovat = $pole_zalohovat.Length
@@ -144,7 +144,7 @@ sleep 1
 
 Write-Host -ForegroundColor $b4 "kopirovani souboru do vypalovaci fronty bylo dokonceno"
 
-Write-Host -ForegroundColor $b1 "klikni pravim tlacitekem mysi v nesledujicim otevrenem okne a zvol polozku" -NoNewline
+Write-Host -ForegroundColor $b1 "klikni pravim tlacitkem mysi v nesledujicim otevrenem okne a zvol polozku" -NoNewline
 Write-Host -ForegroundColor $b2 " Vypalit na disk"
 sleep 10
 

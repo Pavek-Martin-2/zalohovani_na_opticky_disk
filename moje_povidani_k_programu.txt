@@ -1,1 +1,52 @@
-bude doplneno pozdeji, nestihnul jsem
+
+v pocitaci mam adresar "C:\Users\DELL\Documents\zaloha\" a do neho si ukladam vsechny dulezite
+veci a nektere adresare a soubory v teto ceste ( ne vsechny ) take zalohuju, vypalovanim na DVD-RW media
+k tomuto ucelu mam 3 kusy DVD-RW disku na ktere pravidelne zalohuji u kazdeho mam papirek kde si pisu kdy byla zaloha provedena
+a vzdy zalohuju na disk u ktereho je nejstarsi datum, takze prepisuji vzdy posledni nejstarsi zalohu tzn. nejmene aktualni
+a stavalo se mi ze byl obcas kazdej disk by jinej, protoze nekdy jsem na nejakou slozku nebo soubor zapomel
+kdyz se ve Windows v Pruzkumnikovy klikne pravou mysi na nejakou ikonu souboru nebo adresare a pak v kontextove nabidce
+se obevi volba Odeslat -> Jednotaka DVD RW D:
+samozdrejme se da oznacit nekolik slozek a souboru nejdou (drzite klavesu Control a klikate na polozky) a
+pak se klikne pravou mysi a obevi se kontextova nabydka z moznosti Odeslat -> Jednotaka DVD RW D:
+ale ani tohle se me moc nelibylo a nekdy jsem to poplet takze sem si rekl ze "co je psano to je dano"
+ve slozce "C:\Users\DELL\Documents\zaloha\" mam soubory a slozky ktere maji dlouhodobe stejny nazev, nic tam neprejmenovavam
+jenom se meni obsah tech slozek, pripadne verze souboru se stejnym nazvem, takze tady zadny problem nevznika
+kdyz se odesila ( kopiruje ) cela slozka, tak se samozdrejme odesila rekurzivne vcetne vsech podslozek a vsech souboru vnich
+at uz maji nazev jakykoliv
+kdyz tak maximalne neco uberu a nebo naopak pridam, takze odpada nejaky problem z neaktualnosti nazvu ktere by casem byly
+v rozporu z nazvy ktere obsahuje skript na odesilani souboru a adresaru z teto slozky do vypalovaci fronty ve Windows
+(viz. screenshoty v adesari AI_scr)
+na zacatku skriptu je definovaone nekolik promennych:
+$dvd_jednotka = "D:" to je jesny, oznaceni vypalovaci mechaniky ( na vetsine pocitacu pismeno D:)
+dale $burn_folder = "C:\Users\DELL\AppData\Local\Microsoft\Windows\Burn\Burn\"
+tedy cesta do adrasare kde ma Windows ulozenou tzv. vypalovaci frontu viz screenshoty v adresari Ai_scr/
+tady je potreba v kratkosti zminit systemovou promennou %USERPROFILE% ktera je ruzna a lisi se podle uzivatelskeho jmena
+ja mam na smem notebooku nastaveno uzivatelske jneno "DELL" ktere uz tam bylo od predchoziho majitele
+kdyz jsem pocitac prinesl domu z bazaru, takze jsem to tak uz nechal...
+a posledni dulezita vec na zacatku skriptu je promenna tipu pole $pole_zalohovat
+ve kterem je ulozeny "seznam" vsech ardesaru a souboru ktere chci na DVD-RW zalohovat
+ve starsi verzi byli dve pole jedno pro slozky a druhe pro soubory, to stoho duvodu
+ze je potreba trosku jinak pracovat z odesilani adresare a trosku jinak, kdyz se jedna o samostatny soubor
+to se me ale moc nelibylo, takze v posledni verzi je pole uz jenom jedno obsahuje vsechno dohromady
+kazdy radek pole se zpracova tak ze se vnem vyhledava jestli obsahuje znak "." ( tecka )
+tzn. rozdelovac mezi nazvem souboru a priponou souboru ( neplati pro adresare )
+nektere soubory maji priponu dlouho 3 znaky napr. "text.txt" nektere 4 napr. "index.html" a
+nektere treba jednu napr. "main.c" atd. takze neni urcujici na ktere pozici od konce se znak "." tecka
+nachazi ale pouze se vyhledava v celem retezci nazvu, jestli obsahuje ( kdekoliv ) tento znak a paklize
+ano, tak program vyhodnoti ze se jedna o soubor a vsechno ostatni je vyhodnoceno jako adresar
+(tzn. nepouzivejte znak tecka v nazvu adreasare), coz se ale vetsinou nedela, ale je potreba to zminit
+jeste jsem taky trochu premejslel opet viz. adresar AI_scr/ jak to automatizovat co nejvice aby se i vymazal
+starej obsah prepisoatelniho disku a po odeslani do vypalovaci fronty aby se samo automaticky zacalo vypalovat
+( cdrtools, imgburn ) ale veskery pokusi a snahy o toto bohuzel selhaly, takze alespon takhle
+je potreba napred DVD-RW-cko v pruzkumnikovy rucne vymazat, jsou to vlastne jenom dve kliknuti
+jedou pravou mysi ve slozce "Tento Pocitac" na ikonu DVD mechaniky a druhy kliknuti levou mysi na volbu "Smazat disk"
+potom se spusti PowerShell-ovy (verze 5.1) skript "zalohovani_adresaru_na_DVD-RW.ps1"
+ktery se postara o to aby byla spravne nakopirovana do systemovy slozky "burn" vypalovaci fronta, protoze pocitac se
+ne rozdil od lidi neplete :)
+dokonce se po odeslani program jeste postara o to aby bylo ve Windows odevrelo nove okno Pruzkumnika
+a vnem jednotka D: to dela posledni radek skriptu
+Start-Process -FilePath "explorer.exe" $dvd_jednotka
+a pak uz staci v automaticky oteverenem okne jen zkontrovat obsah co se bude vypalovat a kliknot nekde v plose
+provou mysi a pak zvolit "vypalit na disk" takze temer zadna prace a navic bez moznosti omylu a nejakyho
+zbytecnyho premejsleni, pri vice polozkach ktere se hure pamatujou
+autor 23.1.2026
