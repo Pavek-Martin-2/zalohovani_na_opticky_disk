@@ -1,10 +1,12 @@
 ﻿cls
 # automatizace zalohovani na dvd-rw
+Set-PSDebug -Strict
 
 $dvd_jednotka = "D:"
 # cd %USERPROFILE%\AppData\Local\Microsoft\Windows\Burn\Burn
-$burn_folder = "C:\Users\DELL\AppData\Local\Microsoft\Windows\Burn\Burn\" # burn folder (zde editovat username)
+$burn_folder = "C:\Users\DELL\AppData\Local\Microsoft\Windows\Burn\Burn\" # burn folder
 $cesta_zaloha = "C:\Users\DELL\Documents\zaloha\" # zde editovat
+# vsechny adresare a soubory z pole "$pole_zalohovat" jsou v teto ceste "$cesta_zaloha"
 
 $pole_zalohovat = @( # vsechno dohromady jednotlive soubory i adresare a sam pozna co je co podle rozdelovace
 "bookmarks.rar",
@@ -18,6 +20,8 @@ $pole_zalohovat = @( # vsechno dohromady jednotlive soubory i adresare a sam poz
 "segway_kolobezka_moje.rar",
 "y.rar",
 "iso.rar",
+#"chyba_adresar", # test chyba, neexistujeci ardesar
+#"chyba_soubor.txt", # test chyba, neexistujeci soubor ( co to zarve )
 "CB-PMR.rar",
 "dosbox-0.74-3.conf",
 "fuse.rar",
@@ -25,13 +29,17 @@ $pole_zalohovat = @( # vsechno dohromady jednotlive soubory i adresare a sam poz
 "login",
 "ruzne",
 "save_hry",
+# v poli se da i neco zakomentovat a to i takto v prostredku (tanto radek bude bez problemu preskocen, testovano v PS 5.1)
 "moje_prace",
-"tapety"
+"tapety",
+"registr.rar" # export z utility regedit.exe
 ) # toto pole editovat
 
-# prazdne $pole_zalohovat
+
+# neni $pole_zalohovat prazdne ?
 $d_pole_zalohovat = $pole_zalohovat.Length
 if ($d_pole_zalohovat -eq 0 ){
+#echo "neni co zalohovat, edituj promemnou $pole_zalohovat"
 echo "neni co zalohovat"
 sleep 5
 exit
@@ -82,7 +90,6 @@ echo ""
 # pause
 Read-Host -Prompt "Press ENTER to continue"
 
-
 # vycisteni vypalovaci fronty (pro jistotu)
 Write-Host -ForegroundColor $b2 "cistim vypalovaci frontu"
 Remove-Item "$burn_folder\*" -Force -Recurse # vycisteni fronty (smaze celou slozku burn)
@@ -94,7 +101,7 @@ $d_pole_adresare = $pole_adresare.Length
 
 Write-Host -ForegroundColor $b3 "kopiruji adresare do vypalovaci fronty"
 for ( $bb = 0; $bb -le $d_pole_adresare -1; $bb++ ) {
-#Copy-Item "C:\Users\DELL\Documents\zaloha\dvd_katalog\" -Destination "$burn_folder\dvd_katalog\" -Recurse # vzor
+# Copy-Item "C:\Users\DELL\Documents\zaloha\dvd_katalog\" -Destination "$burn_folder\dvd_katalog\" -Recurse # vzor
 $str_1 = ""
 $str_1 += $cesta_zaloha
 $str_1 += $pole_adresare[$bb]
@@ -121,7 +128,6 @@ Write-Host -ForegroundColor $b3 "kopirovani adresaru do vypalovaci fronty bylo d
 
 $d_pole_soubory = $pole_soubory.Length
 echo $pole_soubory[$d_pole_soubory] # posledni polozka
-
 
 Write-Host -ForegroundColor $b3 "kopiruji soubory do vypalovaci fronty"
 for ( $cc = 0; $cc -le $d_pole_soubory -1; $cc++ ) {
