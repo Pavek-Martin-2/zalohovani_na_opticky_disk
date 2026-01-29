@@ -51,7 +51,6 @@ provou mysi a pak zvolit "vypalit na disk" takze temer zadna prace a navic bez m
 zbytecnyho premejsleni, pri vice polozkach ktere se hure pamatujou
 autor 23.1.2026
 
-
 doplneni 29.1.2026
 napsal jsem jeste jako pomucku skript "seznam.ps1"
 skript dela to ze v adresari krery obsahuje promenna $cesta najde vsechny podadresare
@@ -105,3 +104,4 @@ jeste jedna ukazka, pole ktere je pouze na jednom radku a neni rozradkovane jako
 
 $pole_zalohovat @( "podadreaser_1", "soubor_a", "soubor_2", "podadreaser_2" )
 takze tady je vydet proc jsem volil druhou, jednoznacne prehlednejni moznost, se kterou se podstanne lepe pracuje
+
