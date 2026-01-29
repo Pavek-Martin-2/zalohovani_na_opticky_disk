@@ -26,7 +26,7 @@ kdyz jsem pocitac prinesl domu z bazaru, takze jsem to tak uz nechal...
 a posledni dulezita vec na zacatku skriptu je promenna tipu pole $pole_zalohovat
 ve kterem je ulozeny "seznam" vsech ardesaru a souboru ktere chci na DVD-RW zalohovat
 ve starsi verzi byli dve pole jedno pro slozky a druhe pro soubory, to stoho duvodu
-ze je potreba trosku jinak pracovat z odesilani adresare a trosku jinak, kdyz se jedna o samostatny soubor
+ze je potreba trosku jinak pracovat z odesilanim adresare a trosku jinak, kdyz se jedna o samostatny soubor
 to se me ale moc nelibylo, takze v posledni verzi je pole uz jenom jedno obsahuje vsechno dohromady
 kazdy radek pole se zpracova tak ze se vnem vyhledava jestli obsahuje znak "." ( tecka )
 tzn. rozdelovac mezi nazvem souboru a priponou souboru ( neplati pro adresare )
@@ -36,7 +36,7 @@ nachazi ale pouze se vyhledava v celem retezci nazvu, jestli obsahuje ( kdekoliv
 ano, tak program vyhodnoti ze se jedna o soubor a vsechno ostatni je vyhodnoceno jako adresar
 (tzn. nepouzivejte znak tecka v nazvu adreasare), coz se ale vetsinou nedela, ale je potreba to zminit
 jeste jsem taky trochu premejslel opet viz. adresar AI_scr/ jak to automatizovat co nejvice aby se i vymazal
-starej obsah prepisoatelniho disku a po odeslani do vypalovaci fronty aby se samo automaticky zacalo vypalovat
+starej obsah prepisovatelniho disku a po odeslani do vypalovaci fronty aby se samo automaticky zacalo vypalovat
 ( cdrtools, imgburn ) ale veskery pokusi a snahy o toto bohuzel selhaly, takze alespon takhle
 je potreba napred DVD-RW-cko v pruzkumnikovy rucne vymazat, jsou to vlastne jenom dve kliknuti
 jedou pravou mysi ve slozce "Tento Pocitac" na ikonu DVD mechaniky a druhy kliknuti levou mysi na volbu "Smazat disk"
@@ -50,3 +50,58 @@ a pak uz staci v automaticky oteverenem okne jen zkontrovat obsah co se bude vyp
 provou mysi a pak zvolit "vypalit na disk" takze temer zadna prace a navic bez moznosti omylu a nejakyho
 zbytecnyho premejsleni, pri vice polozkach ktere se hure pamatujou
 autor 23.1.2026
+
+
+doplneni 29.1.2026
+napsal jsem jeste jako pomucku skript "seznam.ps1"
+skript dela to ze v adresari krery obsahuje promenna $cesta najde vsechny podadresare
+a potom take vsechny soubory a vytvori vystupni soubor "seznam.txt" ktery se vlastne da rovnou pouzit
+ve skriptu "zalohovani_adresaru_na_DVD-RW.ps1" jako premenna typu pole $pole_zalohovat
+eliminuje se timto moznost preklepu v nazvech apod.
+v tomto seznamu si uz potom staci jem vybrat co je nejdulezitejsi a zbyle radky vymazat a nebo zakomentovat
+vysledek bude stejny ja pouzivam radeji druhou moznost protoze tim nezanika informace co vse bylo vybrano a co 
+vlastne bylo z vyberu vyrazeno, paklize si pozdeji clovek neco rozmylsli tak staci pouze tento radek odkomentovat
+a je opet aktivni a skrip ho zase bude brat v potaz 
+prikad :
+$pole_zalohovat @(
+"soubor_1",
+"soubor_2",
+"soubor_3"
+)
+toto pole obsahuje 3 prvky delka pole $pole_zalohovat.lenght je tedy 3 [0],[1],[2]
+
+uprava zakomentovanim jednoho nebo nekolka a nebo treba i vsech radku pole
+$pole_zalohovat @(
+"soubor_1",
+# "soubor_2",
+"soubor_3"
+)
+
+toto upravene pole sice obsahuje "cely" seznam souboru v ceste $cesta
+ale je zde vydet ze druhy radek se nebude zpracovavat a tedy "soubor_2" nebude kopirovan do vypalovaci fronty
+paklize si to v budoucnu rozmyslim a budu chtit "soubor_2" opet zalohovat staci jen odstranit znak # na zacatku radku
+a vse opet funguje zase jako v prvnim pripade, cili toto je ukazka rozdilu mezi mazanim, kde si pozdeji uz nebudu
+pamatovat jaky soubor tam byl a komentovani pri kterem ma clovek trvali prehled (toto plati samozdrejme obecne)
+skript "seznam.ps1" dela to ze napred bere pouze podadresare v ceste $cesta a ulozi je na zacatku souboru "seznam.txt"
+a pak knim doplni take vsechny soubory, takze je to takto oddelene, to je ale pouze pro lepsi prehlednost
+ve skriptu "zalohovani_adresaru_na_DVD-RW.ps1" v premmene $pole_zalohovat muzou byt stale podadresare i soubory
+namichany jakkoliv, toto zustava stejne jako drive, jak uz jsem popisouval minule, program v kazde polozce hleda
+znak "." tecka tedy rozdelovac mezi nazem a pripomou souboru (adresare ho nemaji) a podle toho pak voli metodu
+kopirovani do vyvalovaci fronty, jinou pro soubor a jinou pro podadresar
+takze klidne i napr. takto :
+$pole_zalohovat @(
+"podadreaser_1",
+# "soubor_a",
+"soubor_2",
+"podadreaser_2"
+# atd.
+)
+
+najruznejsi mix, jinak toto pole bude mit hodnoutu $pole_zalohovat.lenght = 3, misto 5
+na poslednim radku zde tedy polozka "podadreaser_2" jiz nepiseme na konci carku, carka se pise jen v pripade
+ze pole pokracuje dal, na konec pole se napise uzaviraci zavorka ktera ohranicuje deklaraci teto prommene
+
+jeste jedna ukazka, pole ktere je pouze na jednom radku a neni rozradkovane jako zde, funkce bude uplne stejna
+
+$pole_zalohovat @( "podadreaser_1", "soubor_a", "soubor_2", "podadreaser_2" )
+takze tady je vydet proc jsem volil druhou, jednoznacne prehlednejni moznost, se kterou se podstanne lepe pracuje
