@@ -8,31 +8,47 @@ $burn_folder = "C:\Users\DELL\AppData\Local\Microsoft\Windows\Burn\Burn\" # burn
 $cesta_zaloha = "C:\Users\DELL\Documents\zaloha\" # zde editovat
 # vsechny adresare a soubory z pole "$pole_zalohovat" jsou v teto ceste "$cesta_zaloha"
 
+
 $pole_zalohovat = @( # vsechno dohromady jednotlive soubory i adresare a sam pozna co je co podle rozdelovace
-"bookmarks.rar",
-"dvd_katalog.rar",
-"firefox_hesla.rar",
-"CHIRP.rar",
+"_CB-PMR_RAR.bat",
+"_SDILEJ_TO.bat",
+"_DVD_katalog_RAR.bat",
+"_CHIRP_RAR.bat",
+"_login_RAR.bat",
+#"_PDF_RAR.bat",
+"_tapety_RAR.bat",
+"_test_all_RAR.bat",
+"_TREE.bat",
+"_TREE_folder_zaloha.txt",
+"_WindowsPowerShell_RAR.bat",
+#"bookmarks.rar",
+#"dvd_katalog.rar",
+#"firefox_hesla.rar",
+#"sdilej-to.rar",
+#"CHIRP.rar",
 "login.rar",
+"tapety.rar",
 "motiv_moje_aktualni.deskthemepack",
-"mpv-x86_64_mpv 0.34.0-373-g0044c19f0d.rar",
-"SAVEDATA.rar",
-"segway_kolobezka_moje.rar",
+#"termux_backup",
+#"mpv-x86_64_mpv 0.34.0-373-g0044c19f0d.rar",
+#"segway_kolobezka_moje.rar",
 "y.rar",
-"iso.rar",
-#"chyba_adresar", # test chyba, neexistujeci ardesar
-#"chyba_soubor.txt", # test chyba, neexistujeci soubor ( co to zarve )
-"CB-PMR.rar",
+#"iso.rar",
+#"CB-PMR.rar", uz se neveslo
 "dosbox-0.74-3.conf",
-"fuse.rar",
 "Garmin.rar"
 "login",
 "ruzne",
-"save_hry",
-# v poli se da i neco zakomentovat a to i takto v prostredku (tanto radek bude bez problemu preskocen, testovano v PS 5.1)
+#"save_hry",
 "moje_prace",
 "tapety",
-"registr.rar" # export z utility regedit.exe
+#"zx_basic", # nove 24.4.2026
+"bookmarks.html",
+"bookmarks.json",
+"firefox_hesla.csv",
+"*_registr.rar",
+# upraveno 5.9.2026 - funguje kopirovani pres nahradni znaky, hvezdicka nahrada za retezec apod.
+"Marvin.rar"
 ) # toto pole editovat
 
 
@@ -85,7 +101,7 @@ Write-Host -ForegroundColor $b1 " pravim tlacitkem mysi na polozku" -NoNewline
 Write-Host -ForegroundColor $b2 " Jednotka DVD RW (D:)"
 Write-Host -ForegroundColor $b1  "a nasledne v menu vybrat" -NoNewline
 Write-Host -ForegroundColor $b2 " Smazat tento disk"
-echo ""
+#echo ""
 
 # pause
 Read-Host -Prompt "Press ENTER to continue"
@@ -124,6 +140,9 @@ Copy-Item $str_1 -Destination $str_2 -Recurse
 sleep 1
 }
 
+
+#Copy-Item "C:\Users\DELL\Documents\dvd" -Destination $burn_folder # samostatne dokumenty/dvd
+
 Write-Host -ForegroundColor $b3 "kopirovani adresaru do vypalovaci fronty bylo dokonceno"
 
 $d_pole_soubory = $pole_soubory.Length
@@ -152,7 +171,7 @@ Write-Host -ForegroundColor $b4 "kopirovani souboru do vypalovaci fronty bylo do
 
 Write-Host -ForegroundColor $b1 "klikni pravim tlacitkem mysi v nesledujicim otevrenem okne a zvol polozku" -NoNewline
 Write-Host -ForegroundColor $b2 " Vypalit na disk"
-sleep 10
+sleep 5
 
 # taky rucne
 # otevre onko pruzkumniku na jednotce D: uz je tam vse pripravene a uz jenom dat pravou mysi "Vypalit na disk"
